@@ -1,32 +1,16 @@
-CFLAGS = -fprofile-arcs -ftest-coverage -g
-LDFLAGS = -lgcov
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
 
-all: app test
+SRCS = app/main.c src/sort.c src/bubble_sort.c src/counting_sort.c src/heap_sort.c \
+       src/insertion_sort.c src/merge_sort.c src/quick_sort.c src/radix_sort.c \
+       src/selection_sort.c
+OBJS = $(SRCS:.c=.o)
+EXEC = main
 
-# Compila o aplicativo principal
-app:
-	gcc $(CFLAGS) -o app src/quick_sort.c src/merge_sort.c src/heap_sort.c \
-        src/selection_sort.c src/insertion_sort.c src/bubble_sort.c \
-        src/radix_sort.c src/counting_sort.c src/sort.c main.c $(LDFLAGS)
+all: $(EXEC)
 
-# Testes
-test:
-	gcc $(CFLAGS) -o test_sort src/quick_sort.c src/merge_sort.c src/heap_sort.c \
-        src/selection_sort.c src/insertion_sort.c src/bubble_sort.c \
-        src/radix_sort.c src/counting_sort.c src/sort.c test_sort.c -I./ $(LDFLAGS)
+$(EXEC): $(OBJS)
+    $(CC) $(CFLAGS) -o $@ $^
 
-# Code Coverage
-coverage: test_sort
-	./test_sort
-	gcov src/*.c
-
-# AddressSanitizer 
-sanitizer:
-	gcc $(CFLAGS) -fsanitize=address -o test_sort src/quick_sort.c src/merge_sort.c \
-        src/heap_sort.c src/selection_sort.c src/insertion_sort.c src/bubble_sort.c \
-        src/radix_sort.c src/counting_sort.c src/sort.c test_sort.c -I./
-	./test_sort
-
-# Limpa 
 clean:
-	rm -f app test_sort *.gcda *.gcno *.gcov
+    rm -f $(OBJS) $(EXEC)
