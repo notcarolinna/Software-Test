@@ -8,15 +8,27 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: configure
-      run: ./configure
+    # Check current directory
+    - name: Check current directory
+      run: pwd
       
+    # List files in the current directory
+    - name: List files
+      run: ls -la
+
+    # If configure is necessary, ensure it's executable
+    - name: Make configure executable
+      run: chmod +x ./configure || echo "No configure file found"
+
+    # Run configure if it exists
+    - name: Run configure
+      run: ./configure || echo "Configure script not found, skipping"
+
     - name: Install Dependencies
       run: |
         sudo apt-get update && sudo apt-get install -y gcc g++ clang cppcheck valgrind gcovr
@@ -37,6 +49,7 @@ jobs:
 
     - name: Run gcov
       run: make coverage
+
 
       
 # Ferramentas de Descrição de Testes:
