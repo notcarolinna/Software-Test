@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "src/sort.h"
 
-// Main Functions
 void print_array(int* a, int length){
     int i = 0;
     printf("[");
