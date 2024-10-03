@@ -3,25 +3,22 @@ GCCFLAGS = -g -Wall -Wfatal-errors --coverage -fsanitize=address,undefined
 ALL = identifier
 GCC = gcc 
 SRC = src/
-EVERYTHING = src/sort.c src/bubble_sort.c src/counting_sort.c src/heap_sort.c \
-	src/insertion_sort.c src/merge_sort.c src/quick_sort.c src/radix_sort.c \
-	src/selection_sort.c 
+EVERYTHING = $(wildcard $(SRC)*.c) Unity/src/unity.c
 
 # Regras principais
 all: $(ALL)
 
-identifier: identifier.c
-	$(GCC) $(GCCFLAGS) -o $@ $< $(EVERYTHING)
+$(ALL): identifier.c $(EVERYTHING)
+	$(GCC) $(GCCFLAGS) -o $@ $^ 
 
 # Análise de cobertura de código com gcov
-coverage:
-	$(GCC) $(GCCFLAGS) -o $(ALL) $(EVERYTHING) identifier.c
+coverage: all
 	./$(ALL)  
-	gcov $(EVERYTHING) identifier.c  
+	gcov $(EVERYTHING) 
 
 # Análise estática com cppcheck
 static-analysis:
-	cppcheck --enable=all --inconclusive $(EVERYTHING) identifier.c
+	cppcheck --enable=all --inconclusive $(EVERYTHING)
 
 # Verificação de memória com valgrind
 memcheck:
@@ -29,13 +26,11 @@ memcheck:
 
 # Sanitizers (detecta erros de memória em tempo de execução)
 sanitize:
-	$(GCC) $(GCCFLAGS) -o $(ALL) $(EVERYTHING) identifier.c
 	./$(ALL)
 
 # Limpeza dos arquivos gerados
 clean:
 	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov
-
 
 # Ferramentas de Descrição de Testes:
 # gtest, cpptest, catch, fuzzy testing
