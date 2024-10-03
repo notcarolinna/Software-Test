@@ -1,7 +1,7 @@
 
 # Teste de Caixa Branca
 
-O objetivo deste trabalho é empregar ferramentas de descrição de testes e cobertura de código em C de forma automatizada, assegurando que 100% das linhas e ramificações sejam cobertas. Os algoritmos a serem testados foram desenvolvidos por Danilo Novakovic e estão disponíveis no repositório [Sorting Algorithms in C](https://github.com/DaniloNovakovic/sorting-algorithms-in-c).
+O objetivo deste trabalho é empregar ferramentas de descrição de testes e cobertura de código em C de forma automatizada, assegurando que 100% das linhas e branchs sejam cobertas. Os algoritmos a serem testados foram desenvolvidos por Danilo Novakovic e estão disponíveis no repositório [Sorting Algorithms in C](https://github.com/DaniloNovakovic/sorting-algorithms-in-c).
 
 ## Estrutura Básica
 
