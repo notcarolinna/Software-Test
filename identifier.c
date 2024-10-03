@@ -3,34 +3,28 @@
 #include "src/sort.h"
 #include "Unity/src/unity.h"
 
-// Define as funções setUp e tearDown
 void setUp(void) {
-    // Configurações antes de cada teste (se necessário)
 }
 
 void tearDown(void) {
-    // Limpeza após cada teste (se necessário)
 }
 
-// Testa o algoritmo de Bubble Sort
 void test_bubble_sort(void) {
     int a[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
     int length = sizeof(a) / sizeof(int);
     int expected[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     int status = sort(a, length, "On2", BUBBLE);
-    TEST_ASSERT_EQUAL(0, status); // Verifica se o status é 0
-    TEST_ASSERT_EQUAL_INT8_ARRAY(expected, a, length); // Verifica se o array está ordenado
+    TEST_ASSERT_EQUAL(0, status);
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expected, a, length); 
 }
 
-// Testa um caso com parâmetros inválidos
 void test_invalid_length(void) {
-    int a[] = {1}; // Comprimento inválido (menos de 2)
+    int a[] = {1};
     int status = sort(a, 1, "On2", BUBBLE);
-    TEST_ASSERT_EQUAL(1, status); // Espera status 1 para erro
+    TEST_ASSERT_EQUAL(1, status); 
 }
 
-// Função principal para executar os testes
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_bubble_sort);
