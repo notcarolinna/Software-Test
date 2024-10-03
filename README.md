@@ -44,14 +44,14 @@ sudo apt-get install gcc gcov cppcheck valgrind
    make all
    ```
 
-   Este comando utiliza o `Makefile` para compilar os arquivos fonte e criar o executável `identifier`.
+   Este comando utiliza o `Makefile` para compilar os arquivos fonte e criar o executável `main`.
 
 ## Execução dos Testes
 
 Após a compilação, você pode executar o programa para rodar os testes:
 
 ```bash
-./identifier
+./main
 ```
 
 Os resultados dos testes serão exibidos no terminal.
@@ -63,7 +63,7 @@ Para gerar a análise de cobertura de código, você pode usar o comando `gcov`.
 1. Execute o programa para gerar os arquivos de cobertura:
 
    ```bash
-   ./identifier
+   ./main
    ```
 
 2. Use `gcov` para analisar um arquivo específico:
