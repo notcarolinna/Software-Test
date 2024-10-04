@@ -44,7 +44,7 @@ jobs:
       run: make coverage
 
     - name: Run AddressSanitizer Tests
-      run: ./app
+      run: ./exec
 
      
 # Ferramentas de Descrição de Testes:
