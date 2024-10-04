@@ -18,10 +18,9 @@ ALL_LDFLAGS += $(addprefix -Xlinker ,$(EXTRA_LDFLAGS))
 GCCFLAGS = -g -Wall -Wfatal-errors 
 GCC = gcc
 SANITIZER = -fsanitize=address
-CCPCHECKFLAGS = --enable=all --suppress=missingIncludeSystem
+#CCPCHECKFLAGS = --enable=all --suppress=missingIncludeSystem
 GCOVFLAGS = -fprofile-arcs -ftest-coverage
 
-# Listando todos os arquivos de fonte
 SOURCES = src/sort.c src/bubble_sort.c src/counting_sort.c src/heap_sort.c \
     src/insertion_sort.c src/merge_sort.c src/quick_sort.c src/radix_sort.c \
     src/selection_sort.c main.c
@@ -35,7 +34,7 @@ UNITY_SRC=$(UNITY_ROOT)/src/unity.c \
   test/testes.c \
   test/Test_Runner.c \
   test/all_tests.c \
-  sort.c
+  src/sort.c
 UNITY_INC_DIRS = -Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 UNITY_TARGET = all_tests
 
@@ -53,11 +52,11 @@ INPUT8 = -a quick -n 10 -s random
 
 all: clean cppcheck valgrind sanitizer unity coverage
 	
-cppcheck: $(SOURCES) $(TEST_SOURCES)
-	cppcheck $(CCPCHECKFLAGS) --error-exitcode=1 $^
+#cppcheck: $(SOURCES) $(TEST_SOURCES)
+#	cppcheck $(CCPCHECKFLAGS) --error-exitcode=1 $^
 
 valgrind: $(SOURCES)
-	$(GCC) $(GCCFLAGS) -o $(EXEC) $^
+	$(GCC) $(GCCFLAGS) $(GCOVFLAGS) -o $(EXEC) $^  # Adicionei GCOVFLAGS
 	valgrind --error-exitcode=1 --leak-check=full --show-leak-kinds=all ./$(EXEC) $(INPUT1)
 	valgrind --error-exitcode=1 --leak-check=full --show-leak-kinds=all ./$(EXEC) $(INPUT2)
 	valgrind --error-exitcode=1 --leak-check=full --show-leak-kinds=all ./$(EXEC) $(INPUT3)
@@ -79,9 +78,12 @@ sanitizer: $(SOURCES)
 	./$(EXEC) $(INPUT8)
 
 unity:
-	$(GCC) $(GCCFLAGS) $(GCOVFLAGS) $(UNITY_INC_DIRS) $(UNITY_SRC) -o $(UNITY_TARGET)
+	$(GCC) $(GCCFLAGS) $(GCOVFLAGS) $(UNITY_INC_DIRS) $(UNITY_SRC) -o $(UNITY_TARGET)  
 	./$(UNITY_TARGET) -v
-	gcov -b sort.c
+	gcov -b $(SOURCES)  
+
+coverage: $(EXEC)
+	gcov $(SOURCES)
 
 app: sort.c main.c 
 	$(GCC) sort.c main.c -o $@

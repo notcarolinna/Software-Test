@@ -2,8 +2,12 @@
 #include "../Unity/extras/fixture/src/unity_fixture.h"
 
 TEST_GROUP_RUNNER(Sorting){
-    RUN_TEST_CASE(Sorting, TestSorting1);
-    RUN_TEST_CASE(Sorting, TestSorting2);
-    RUN_TEST_CASE(Sorting, TestSorting3);
-    RUN_TEST_CASE(Sorting, TestSorting4);
+    RUN_TEST_CASE(Sorting, TestSortingAscending);
+    RUN_TEST_CASE(Sorting, TestSortingDescending);
+    RUN_TEST_CASE(Sorting, TestSortingDuplicates);
+    RUN_TEST_CASE(Sorting, TestSortingNegative);
+    RUN_TEST_CASE(Sorting, TestSortingMixed);
+    RUN_TEST_CASE(Sorting, TestSortingMinSize);
+    RUN_TEST_CASE(Sorting, TestSortingMaxSize);
+    RUN_TEST_CASE(Sorting, TestSortingInvalidSize);
 }
