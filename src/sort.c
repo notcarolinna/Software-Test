@@ -10,7 +10,7 @@ int sort(int* a, int length, char* type, int algorithm) {
     else {
         switch(algorithm){
             case COUNTING:
-                if (!strcmp(type,"On2"))
+                if (!strcmp(type,"On"))
                     counting_sort(s, length);
                 else
                     status = 1;
