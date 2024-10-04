@@ -18,7 +18,7 @@ ALL_LDFLAGS += $(addprefix -Xlinker ,$(EXTRA_LDFLAGS))
 GCCFLAGS = -g -Wall -Wfatal-errors 
 GCC = gcc
 SANITIZER = -fsanitize=address
-#CCPCHECKFLAGS = --enable=all --suppress=missingIncludeSystem
+CCPCHECKFLAGS = --enable=all --suppress=missingIncludeSystem
 GCOVFLAGS = -fprofile-arcs -ftest-coverage
 
 SOURCES = src/sort.c src/bubble_sort.c src/counting_sort.c src/heap_sort.c \
@@ -80,10 +80,9 @@ sanitizer: $(SOURCES)
 unity:
 	$(GCC) $(GCCFLAGS) $(GCOVFLAGS) $(UNITY_INC_DIRS) $(UNITY_SRC) -o $(UNITY_TARGET)  
 	./$(UNITY_TARGET) -v
-	gcov -b $(SOURCES)  
 
 coverage: $(EXEC)
-	gcov $(SOURCES)
+	gcov all_tests-testes.gcda
 
 app: src/bubble_sort.c src/counting_sort.c src/heap_sort.c src/insertion_sort.c src/merge_sort.c src/quick_sort.c src/radix_sort.c src/selection_sort.c src/sort.c main.c
 	$(GCC) bubble_sort.c counting_sort.c heap_sort.c insertion_sort.c merge_sort.c quick_sort.c radix_sort.c selection_sort.c sort.c main.c -o $@

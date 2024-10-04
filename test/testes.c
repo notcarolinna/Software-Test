@@ -6,6 +6,9 @@
 #define ERRADO 1
 
 // Vetores de teste
+// Se testar esses vetores no Radix ou Counting dá seg fault
+// No caso crasha com qualquer número negativo
+
 int vet_asc[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int vet_desc[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 int vet_dup[12] = {3, 1, 2, 3, 2, 1, 3, 1, 2, 3, 2, 1};
@@ -13,7 +16,6 @@ int vet_neg[5] = {3,2,1,0,-1};
 int vet_mixed[8] = {3, -1, 2, -3, 1, -2, 5, 0};
 
 void teste(int* vet_base, int size, int compare);
-void print_array(int* a, int length);
 
 TEST_GROUP(Sorting);
 
@@ -68,7 +70,6 @@ TEST(Sorting, TestSortingMinSize){
 TEST(Sorting, TestSortingMaxSize) {
 	int *vet_max = malloc(20 * sizeof(int));
     if (vet_max != NULL) {
-		// Preenche o vetor em ordem decrescente
         for (int i = 0; i < 20; i++) {
             vet_max[i] = 20 - i;
         }

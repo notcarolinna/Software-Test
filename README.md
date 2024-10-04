@@ -9,7 +9,7 @@ A função `sort` recebe quatro argumentos: um ponteiro para o vetor de inteiros
 
 ## Recursos Utilizados
 
-Um Makefile foi desenvolvido para automatizar a compilação, e a ferramenta de Continuous Integration do GitHub foi utilizada. As ferramentas de análise de cobertura de código incluem `gcov`, `cppcheck`, `valgrind` e sanitizers. O framework Unity foi utilizado como ferramenta de descrição de testes, juntamente com `gtest`, `cpptest` e `catch`.
+Um Makefile foi desenvolvido para automatizar a compilação, e a ferramenta de Continuous Integration do GitHub foi utilizada. As ferramentas de análise de cobertura de código incluem `gcov`, `cppcheck`, `valgrind` e sanitizers. O framework Unity foi utilizado como ferramenta de descrição de testes.
 
 ## Pré-requisitos
 
@@ -44,35 +44,8 @@ sudo apt-get install gcc gcov cppcheck valgrind
    make all
    ```
 
-   Este comando utiliza o `Makefile` para compilar os arquivos fonte e criar o executável `main`.
+   Este comando utiliza o `Makefile` para compilar os arquivos fonte e exibir no terminal os resultados dos testes e o percentual de cobertura.
 
-## Execução dos Testes
-
-Após a compilação, você pode executar o programa para rodar os testes:
-
-```bash
-./main
-```
-
-Os resultados dos testes serão exibidos no terminal.
-
-## Análise de Cobertura de Código
-
-Para gerar a análise de cobertura de código, você pode usar o comando `gcov`. Siga estes passos:
-
-1. Execute o programa para gerar os arquivos de cobertura:
-
-   ```bash
-   ./main
-   ```
-
-2. Use `gcov` para analisar um arquivo específico:
-
-   ```bash
-   gcov src/bubble_sort.c
-   ```
-
-   Isso criará um arquivo `bubble_sort.c.gcov` que contém informações sobre a cobertura do código.
 
 ## Limpeza do Projeto
 
@@ -81,3 +54,22 @@ Para remover os arquivos gerados durante a compilação e os arquivos de cobertu
 ```bash
 make clean
 ```
+
+## Casos de Teste das Classes de Equivalência
+
+| Número do Teste    | Nome do Teste           | Casos de Teste                                                                                     |
+|--------------------|-------------------------|-----------------------------------------------------------------------------------------------------|
+| 1                  | TestSortingAscending     | `{1,2,3,4,5,6,7,8,9,10}`, `{1,2,3,4,5,6,7,8,9,10}`                                                  |
+| 2                  | TestSortingDescending    | `{10,9,8,7,6,5,4,3,2,1}`, `{1,2,3,4,5,6,7,8,9,10}`                                                  |
+| 3                  | TestSortingDuplicates    | `{3,1,2,3,2,1,3,1,2,3,2,1}`, `{1,1,1,1,2,2,2,2,3,3,3,3}`                                            |
+| 4                  | TestSortingNegative      | `{3,2,1,0,-1}`, `{-1,0,1,2,3}`                                                                      |
+| 5                  | TestSortingMixed         | `{3,-1,2,-3,1,-2,5,0}`, `{-3,-2,-1,0,1,2,3,5}`                                                      |
+| 6                  | TestSortingMinSize       | `{2,1}`, `{1,2}`                                                                                     |
+| 7                  | TestSortingMaxSize       | `{20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1}`, `{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}` |
+| 8                  | TestSortingInvalidSize   | `{21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1}`, `{21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1}` (Valor esperado igual porque é inválido) |
+| 9                  | TestSortingZeroSize      | `{}`, `{}` (valor esperado igual porque é inválido)                                                 |
+
+
+## Falhas
+
+Um problema significativo durante o desenvolvimento do algoritmo de teste ocorreu com as funções `counting_sort` e `radix_sort`, devido à maneira como ambas tratam números negativos. Isso resultou em vários erros de *segmentation fault* (core dumped) nos testes que envolviam valores negativos.
