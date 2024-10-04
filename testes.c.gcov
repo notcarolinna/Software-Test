@@ -1,0 +1,263 @@
+        -:    0:Source:test/testes.c
+        -:    0:Graph:all_tests-testes.gcno
+        -:    0:Data:all_tests-testes.gcda
+        -:    0:Runs:1
+        -:    1:#include "unity.h"
+        -:    2:#include "unity_fixture.h"
+        -:    3:#include "../src/sort.h"
+        -:    4:
+        -:    5:#define CERTO 0
+        -:    6:#define ERRADO 1
+        -:    7:
+        -:    8:// Vetores de teste
+        -:    9:int vet_asc[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        -:   10:int vet_desc[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        -:   11:int vet_dup[12] = {3, 1, 2, 3, 2, 1, 3, 1, 2, 3, 2, 1};
+        -:   12:int vet_neg[5] = {3,2,1,0,-1};
+        -:   13:int vet_mixed[8] = {3, -1, 2, -3, 1, -2, 5, 0};
+        -:   14:
+        -:   15:void teste(int* vet_base, int size, int compare);
+        -:   16:void print_array(int* a, int length);
+        -:   17:
+        -:   18:TEST_GROUP(Sorting);
+        -:   19:
+        9:   20:TEST_SETUP(Sorting){}
+        -:   21:
+        9:   22:TEST_TEAR_DOWN(Sorting){}
+        -:   23:
+        -:   24:// Testa vetor ascendente
+        2:   25:TEST(Sorting, TestSortingAscending){
+        1:   26:	teste(vet_asc, 10, CERTO);
+        -:   27:	//free(vet_asc);
+        1:   28:}
+------------------
+TEST_Sorting_TestSortingAscending_:
+        1:   25:TEST(Sorting, TestSortingAscending){
+        1:   26:	teste(vet_asc, 10, CERTO);
+        -:   27:	//free(vet_asc);
+        1:   28:}
+------------------
+TEST_Sorting_TestSortingAscending_run:
+        1:   25:TEST(Sorting, TestSortingAscending){
+------------------
+        -:   29:
+        -:   30:// Testa vetor descendente
+        2:   31:TEST(Sorting, TestSortingDescending){
+        1:   32:	teste(vet_desc, 10, CERTO);
+        -:   33:	//free(vet_desc);
+        1:   34:}
+------------------
+TEST_Sorting_TestSortingDescending_:
+        1:   31:TEST(Sorting, TestSortingDescending){
+        1:   32:	teste(vet_desc, 10, CERTO);
+        -:   33:	//free(vet_desc);
+        1:   34:}
+------------------
+TEST_Sorting_TestSortingDescending_run:
+        1:   31:TEST(Sorting, TestSortingDescending){
+------------------
+        -:   35:
+        -:   36:// Testa vetor com elementos repetidos
+        2:   37:TEST(Sorting, TestSortingDuplicates){
+        1:   38:	teste(vet_dup, 12, CERTO);
+        -:   39:	//free(vet_dup);
+        1:   40:}
+------------------
+TEST_Sorting_TestSortingDuplicates_:
+        1:   37:TEST(Sorting, TestSortingDuplicates){
+        1:   38:	teste(vet_dup, 12, CERTO);
+        -:   39:	//free(vet_dup);
+        1:   40:}
+------------------
+TEST_Sorting_TestSortingDuplicates_run:
+        1:   37:TEST(Sorting, TestSortingDuplicates){
+------------------
+        -:   41:
+        -:   42:// Teste vetor com elementos negativos
+        2:   43:TEST(Sorting, TestSortingNegative){
+        1:   44:	teste(vet_neg, 5, CERTO);
+        -:   45:	//free(vet_neg);
+        1:   46:}
+------------------
+TEST_Sorting_TestSortingNegative_:
+        1:   43:TEST(Sorting, TestSortingNegative){
+        1:   44:	teste(vet_neg, 5, CERTO);
+        -:   45:	//free(vet_neg);
+        1:   46:}
+------------------
+TEST_Sorting_TestSortingNegative_run:
+        1:   43:TEST(Sorting, TestSortingNegative){
+------------------
+        -:   47:
+        -:   48:// Teste vetor com elementos positivos e negativos
+        2:   49:TEST(Sorting, TestSortingMixed){
+        1:   50:	teste(vet_mixed, 8, CERTO);
+        -:   51:	//free(vet_mixed);
+        1:   52:}
+------------------
+TEST_Sorting_TestSortingMixed_:
+        1:   49:TEST(Sorting, TestSortingMixed){
+        1:   50:	teste(vet_mixed, 8, CERTO);
+        -:   51:	//free(vet_mixed);
+        1:   52:}
+------------------
+TEST_Sorting_TestSortingMixed_run:
+        1:   49:TEST(Sorting, TestSortingMixed){
+------------------
+        -:   53:
+        -:   54:// Testa vetor com tamanho mínimo
+        -:   55:// leak de memória
+        2:   56:TEST(Sorting, TestSortingMinSize){
+        1:   57:	int *vet_min = malloc(2 * sizeof(int));
+        1:   58:	if (vet_min != NULL) {
+        1:   59:		vet_min[0] = 2; 
+        1:   60:		vet_min[1] = 1;
+        1:   61:		teste(vet_min, 2, CERTO);
+        -:   62:    }
+        1:   63:	free(vet_min);
+        1:   64:}
+------------------
+TEST_Sorting_TestSortingMinSize_:
+        1:   56:TEST(Sorting, TestSortingMinSize){
+        1:   57:	int *vet_min = malloc(2 * sizeof(int));
+        1:   58:	if (vet_min != NULL) {
+        1:   59:		vet_min[0] = 2; 
+        1:   60:		vet_min[1] = 1;
+        1:   61:		teste(vet_min, 2, CERTO);
+        -:   62:    }
+        1:   63:	free(vet_min);
+        1:   64:}
+------------------
+TEST_Sorting_TestSortingMinSize_run:
+        1:   56:TEST(Sorting, TestSortingMinSize){
+------------------
+        -:   65:
+        -:   66:// Testa vetor com tamanho máximo
+        -:   67:// leak de memória
+        2:   68:TEST(Sorting, TestSortingMaxSize) {
+        1:   69:	int *vet_max = malloc(20 * sizeof(int));
+        1:   70:    if (vet_max != NULL) {
+        -:   71:		// Preenche o vetor em ordem decrescente
+       21:   72:        for (int i = 0; i < 20; i++) {
+       20:   73:            vet_max[i] = 20 - i;
+        -:   74:        }
+        1:   75:		teste(vet_max, 20, CERTO);
+        -:   76:    }
+        1:   77:	free(vet_max);
+        1:   78:}
+------------------
+TEST_Sorting_TestSortingMaxSize_:
+        1:   68:TEST(Sorting, TestSortingMaxSize) {
+        1:   69:	int *vet_max = malloc(20 * sizeof(int));
+        1:   70:    if (vet_max != NULL) {
+        -:   71:		// Preenche o vetor em ordem decrescente
+       21:   72:        for (int i = 0; i < 20; i++) {
+       20:   73:            vet_max[i] = 20 - i;
+        -:   74:        }
+        1:   75:		teste(vet_max, 20, CERTO);
+        -:   76:    }
+        1:   77:	free(vet_max);
+        1:   78:}
+------------------
+TEST_Sorting_TestSortingMaxSize_run:
+        1:   68:TEST(Sorting, TestSortingMaxSize) {
+------------------
+        -:   79:
+        -:   80:// Testa um vetor com mais de 20 elementos (deve retornar erro)
+        -:   81:// leak de memória 
+        2:   82:TEST(Sorting, TestSortingInvalidSize) {
+        1:   83:    int *vet_invalid = malloc(21 * sizeof(int));
+        1:   84:    if (vet_invalid != NULL) {
+       22:   85:        for (int i = 0; i < 21; i++) {
+       21:   86:            vet_invalid[i] = 21 - i; 
+        -:   87:        }
+        1:   88:		teste(vet_invalid, 21, ERRADO);
+        -:   89:    }
+        1:   90:	free(vet_invalid);
+        1:   91:}
+------------------
+TEST_Sorting_TestSortingInvalidSize_:
+        1:   82:TEST(Sorting, TestSortingInvalidSize) {
+        1:   83:    int *vet_invalid = malloc(21 * sizeof(int));
+        1:   84:    if (vet_invalid != NULL) {
+       22:   85:        for (int i = 0; i < 21; i++) {
+       21:   86:            vet_invalid[i] = 21 - i; 
+        -:   87:        }
+        1:   88:		teste(vet_invalid, 21, ERRADO);
+        -:   89:    }
+        1:   90:	free(vet_invalid);
+        1:   91:}
+------------------
+TEST_Sorting_TestSortingInvalidSize_run:
+        1:   82:TEST(Sorting, TestSortingInvalidSize) {
+------------------
+        -:   92:
+        -:   93:// Testa um vetor de tamanho 0
+        2:   94:TEST(Sorting, TestSortingZeroSize) {
+        1:   95:    int *vet_empty = malloc(0);  
+        1:   96:    teste(vet_empty, 0, ERRADO);  
+        1:   97:}
+------------------
+TEST_Sorting_TestSortingZeroSize_:
+        1:   94:TEST(Sorting, TestSortingZeroSize) {
+        1:   95:    int *vet_empty = malloc(0);  
+        1:   96:    teste(vet_empty, 0, ERRADO);  
+        1:   97:}
+------------------
+TEST_Sorting_TestSortingZeroSize_run:
+        1:   94:TEST(Sorting, TestSortingZeroSize) {
+------------------
+        -:   98:
+        9:   99:void teste(int* vet_base, int size, int compare) {
+        9:  100:    int status = 0;
+        9:  101:    int *vet = malloc(size * sizeof(int));
+        9:  102:    if (vet != NULL) {
+        8:  103:		printf("começando\n\n");
+        -:  104:		
+        -:  105:		// Counting Sort
+        -:  106:		//memcpy(vet, vet_base, size * sizeof(int));
+        -:  107:		//status += sort(vet, size, "On", COUNTING);
+        -:  108:		//printf("COUNTING + %d\n", status);
+        -:  109:
+        -:  110:		// Radix Sort
+        -:  111:		// memcpy(vet, vet_base, size * sizeof(int));
+        -:  112:		//status += sort(vet, size, "Onlogn", RADIX);
+        -:  113:		// printf("RADIX + %d\n", status);
+        -:  114:        
+        -:  115:        // Bubble Sort
+        8:  116:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  117:        status += sort(vet, size, "On2", BUBBLE);
+        8:  118:        printf("BUBBLE + %d\n", status);
+        -:  119:        
+        -:  120:        // Insertion Sort
+        8:  121:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  122:        status += sort(vet, size, "On2", INSERTION);
+        8:  123:        printf("INSERTION + %d\n", status);
+        -:  124:        
+        -:  125:        // Selection Sort
+        8:  126:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  127:        status += sort(vet, size, "On2", SELECTION);
+        8:  128:        printf("SELECTION + %d\n", status);
+        -:  129:        
+        -:  130:        // Heap Sort
+        8:  131:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  132:        status += sort(vet, size, "Onlogn", HEAP);
+        8:  133:        printf("HEAP + %d\n", status);
+        -:  134:        
+        -:  135:        // Merge Sort
+        8:  136:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  137:        status += sort(vet, size, "Onlogn", MERGE);
+        8:  138:        printf("MERGE + %d\n", status);
+        -:  139:        
+        -:  140:        // Quick Sort
+        8:  141:        memcpy(vet, vet_base, size * sizeof(int));
+        8:  142:        status += sort(vet, size, "Onlogn", QUICK);
+        8:  143:        printf("QUICK + %d\n", status);
+        -:  144:
+        8:  145:        if(status > 0)
+        1:  146:            status = 1;
+        -:  147:
+        8:  148:        TEST_ASSERT_EQUAL(compare, status);
+        -:  149:    }
+        9:  150:    free(vet);
+        9:  151:}
