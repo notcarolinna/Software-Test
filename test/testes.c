@@ -13,6 +13,7 @@ int vet_neg[5] = {-1, -3, -2, -5, -4};
 int vet_mixed[8] = {3, -1, 2, -3, 1, -2, 5, 0};
 
 void teste(int* vet_base, int size, int compare);
+void print_array(int* a, int length);
 
 TEST_GROUP(Sorting);
 
@@ -23,26 +24,31 @@ TEST_TEAR_DOWN(Sorting){}
 // Testa vetor ascendente
 TEST(Sorting, TestSortingAscending){
 	teste(vet_asc, 10, CERTO);
+	//free(vet_asc);
 }
 
 // Testa vetor descendente
 TEST(Sorting, TestSortingDescending){
 	teste(vet_desc, 10, CERTO);
+	//free(vet_desc);
 }
 
 // Testa vetor com elementos repetidos
 TEST(Sorting, TestSortingDuplicates){
 	teste(vet_dup, 12, CERTO);
+	//free(vet_dup);
 }
 
 // Teste vetor com elementos negativos
 TEST(Sorting, TestSortingNegative){
 	teste(vet_neg, 5, CERTO);
+	//free(vet_neg);
 }
 
 // Teste vetor com elementos positivos e negativos
 TEST(Sorting, TestSortingMixed){
 	teste(vet_mixed, 8, CERTO);
+	//free(vet_mixed);
 }
 
 // Testa vetor com tamanho mínimo
@@ -53,6 +59,7 @@ TEST(Sorting, TestSortingMinSize){
 		vet_min[1] = 1;
 		teste(vet_min, 2, CERTO);
     }
+	//free(vet_min);
 }
 
 // Testa vetor com tamanho máximo
@@ -65,6 +72,7 @@ TEST(Sorting, TestSortingMaxSize) {
         }
 		teste(vet_max, 20, CERTO);
     }
+	//free(vet_max);
 }
 
 // Testa um vetor com mais de 20 elementos (deve retornar erro)
@@ -76,53 +84,51 @@ TEST(Sorting, TestSortingInvalidSize) {
         }
 		teste(vet_invalid, 21, ERRADO);
     }
+	//free(vet_invalid);
 }
 
+// Testa um vetor de tamanho 0
+TEST(Sorting, TestSortingZeroSize) {
+    int *vet_empty = malloc(0);  
+    teste(vet_empty, 0, ERRADO);  
+}
 
 void teste(int* vet_base, int size, int compare) {
-    int status = 0;
+	int status;
     int *vet = malloc(size * sizeof(int));
     if (vet != NULL) {
-        // Counting Sort
+		// Counting Sort
+        memcpy(vet, vet_base, size * sizeof(int));
+        status = sort(vet, size, "Onlogn", COUNTING);
+        TEST_ASSERT_EQUAL(compare, status);
+		// Radix Sort
 		memcpy(vet, vet_base, size * sizeof(int));
-        printf("\nUnsorted: ");
-
-        status = sort(vet, size, "On", COUNTING);
-        printf("Status: %d\n", status);
-        printf("Sorted: ");
-
+        status = sort(vet, size, "Onlogn", RADIX);
         TEST_ASSERT_EQUAL(compare, status);
-        
-        // Radix Sort
-        memcpy(vet, vet_base, size * sizeof(int));
-        status = sort(vet, size, "On", RADIX);
+		// Bubble Sort
+		memcpy(vet, vet_base, size * sizeof(int));
+        status = sort(vet, size, "Onlogn", BUBBLE);
         TEST_ASSERT_EQUAL(compare, status);
-        // Bubble Sort
-        memcpy(vet, vet_base, size * sizeof(int));
-        status = sort(vet, size, "On2", BUBBLE);
+		// Insertion Sort
+		memcpy(vet, vet_base, size * sizeof(int));
+        status = sort(vet, size, "Onlogn", INSERTION);
         TEST_ASSERT_EQUAL(compare, status);
-        // Insertion Sort
-        memcpy(vet, vet_base, size * sizeof(int));
-        status = sort(vet, size, "On2", INSERTION);
+		// Selection Sort
+		memcpy(vet, vet_base, size * sizeof(int));
+        status = sort(vet, size, "Onlogn", SELECTION);
         TEST_ASSERT_EQUAL(compare, status);
-        // Selection Sort
-        memcpy(vet, vet_base, size * sizeof(int));
-        status = sort(vet, size, "On2", SELECTION);
-        TEST_ASSERT_EQUAL(compare, status);
-        // Heap Sort
-        memcpy(vet, vet_base, size * sizeof(int));
+		// Heap Sort
+		memcpy(vet, vet_base, size * sizeof(int));
         status = sort(vet, size, "Onlogn", HEAP);
         TEST_ASSERT_EQUAL(compare, status);
-        // Merge Sort
-        memcpy(vet, vet_base, size * sizeof(int));
+		// Merge Sort
+		memcpy(vet, vet_base, size * sizeof(int));
         status = sort(vet, size, "Onlogn", MERGE);
         TEST_ASSERT_EQUAL(compare, status);
-        // Quick Sort
-        memcpy(vet, vet_base, size * sizeof(int));
+		// Quick Sort
+		memcpy(vet, vet_base, size * sizeof(int));
         status = sort(vet, size, "Onlogn", QUICK);
         TEST_ASSERT_EQUAL(compare, status);
-
-	    free(vet);
-
     }
+	free(vet);
 }
