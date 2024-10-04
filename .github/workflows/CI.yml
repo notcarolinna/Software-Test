@@ -1,52 +1,52 @@
- name: C/C++ CI
+name: C/C++ CI
 
- on:
-   push:
-     branches: [ "main" ]
-   pull_request:
-     branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
- jobs:
-   build:
-     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-     steps:
-     - uses: actions/checkout@v4
+    steps:
+    - uses: actions/checkout@v4
 
-     - name: Check current directory
-       run: pwd
-      
-     - name: List files
-       run: ls -la
+    - name: Check current directory
+      run: pwd
+     
+    - name: List files
+      run: ls -la
 
-     - name: Make configure executable
-       run: chmod +x ./configure || echo "No configure file found"
+    - name: Make configure executable
+      run: chmod +x ./configure || echo "No configure file found"
 
-     - name: Run configure
-       run: ./configure || echo "Configure script not found, skipping"
+    - name: Run configure
+      run: ./configure || echo "Configure script not found, skipping"
 
-     - name: Install Dependencies
-       run: |
-         sudo apt-get update && sudo apt-get install -y gcc g++ clang cppcheck valgrind gcovr
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update && sudo apt-get install -y gcc g++ clang cppcheck valgrind gcovr
 
-     - name: Build with AddressSanitizer
-       run: |
-           make clean
-           CFLAGS="-fsanitize=address -g -O1 -fno-omit-frame-pointer" make
-  
-     - name: Run AddressSanitizer Tests
-       run: ./app
+    - name: Build with AddressSanitizer
+      run: |
+          make clean
+          CFLAGS="-fsanitize=address -g -O1 -fno-omit-frame-pointer" make
+ 
+    - name: Run cppcheck
+      run: make cppcheck
 
-     - name: Run cppcheck
-       run: make cppcheck
+    - name: Run valgrind
+      run: make valgrind
 
-     - name: Run valgrind
-       run: make valgrind
+    - name: Run gcov
+      run: make coverage
 
-     - name: Run gcov
-       run: make coverage
+    - name: Run AddressSanitizer Tests
+      run: ./app
 
-      
+     
 # Ferramentas de Descrição de Testes:
 # gtest, cpptest, catch, fuzzy testing
 # Code Coverage:
@@ -57,5 +57,5 @@
 # gcc: gcc test.c
 # cppcheck: cppcheck --enable=all --suppress=missingIncludeSystem test.c
 # valgrind: gcc -g -Wall -Wfatal-errors test.c -o test
-          # valgrind --leak-check=full --show-leak-kinds=all ./test
+         # valgrind --leak-check=full --show-leak-kinds=all ./test
 # address sanitizer: gcc -g -Wall -Wfatal-errors -fsanitize=address test.c -o test ./test
