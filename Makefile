@@ -1,6 +1,6 @@
 # Configurações de compilação
 GCCFLAGS = -g -Wall -Wfatal-errors --coverage -fsanitize=address,undefined
-ALL = identifier
+ALL = main
 GCC = gcc 
 SRC = src/
 EVERYTHING = $(wildcard $(SRC)*.c) Unity/src/unity.c
@@ -8,7 +8,7 @@ EVERYTHING = $(wildcard $(SRC)*.c) Unity/src/unity.c
 # Regras principais
 all: $(ALL)
 
-$(ALL): identifier.c $(EVERYTHING)
+$(ALL): main.c $(EVERYTHING)
 	$(GCC) $(GCCFLAGS) -o $@ $^ 
 
 # Análise de cobertura de código com gcov
