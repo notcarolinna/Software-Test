@@ -1,5 +1,5 @@
-#include "unity.h"
-#include "unity_fixture.h"
+#include "../Unity/src/unity.h"
+#include "../Unity/extras/fixture/src/unity_fixture.h"
 
 TEST_GROUP_RUNNER(Sorting){
     RUN_TEST_CASE(Sorting, TestSorting1);

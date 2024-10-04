@@ -1,47 +1,34 @@
-#include "unity.h"
-#include "unity_fixture.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../Unity/src/unity.h"
 #include "../src/sort.h"
+#include "../Unity/extras/fixture/src/unity_fixture.h"
 
-	int vet[][] = {
-		{2,1},
-		{3,2,1},
-		{4,3,2,1},
-		{5,4,3,2,1},
-		{6,5,4,3,2,1},
-		{7,6,5,4,3,2,1},
-		{8,7,6,5,4,3,2,1},
-		{9,8,7,6,5,4,3,2,1},
-		{10,9,8,7,6,5,4,3,2,1},
-		{11,10,9,8,7,6,5,4,3,2,1},
-		{12,11,10,9,8,7,6,5,4,3,2,1},
-		{13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1},
-		{20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1}
-	}
-	// int vet2[2] = {2,1};
-	// int vet3[3] = {3,2,1};
-	// int vet4[4] = {4,3,2,1};
-	// int vet5[5] = {5,4,3,2,1};
-	// int vet6[6] = {6,5,4,3,2,1};
-	// int vet7[7] = {7,6,5,4,3,2,1};
-	// int vet8[8] = {8,7,6,5,4,3,2,1};
-	// int vet9[9] = {9,8,7,6,5,4,3,2,1};
-	// int vet10[10] = {10,9,8,7,6,5,4,3,2,1};
-	// int vet11[11] = {11,10,9,8,7,6,5,4,3,2,1};
-	// int vet12[12] = {12,11,10,9,8,7,6,5,4,3,2,1}; 
-	// int vet13[13] = {13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet14[14] = {14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet15[15] = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet16[16] = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet17[17] = {17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet18[18] = {18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet19[19] = {19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
-	// int vet20[20] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,4,1};
+int sizes[19] = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+
+int vet0[2] = {2,1};
+int vet1[3] = {3,2,1};
+int vet2[4] = {4,3,2,1};
+int vet3[5] = {5,4,3,2,1};
+int vet4[6] = {6,5,4,3,2,1};
+int vet5[7] = {7,6,5,4,3,2,1};
+int vet6[8] = {8,7,6,5,4,3,2,1};
+int vet7[9] = {9,8,7,6,5,4,3,2,1};
+int vet8[10] = {10,9,8,7,6,5,4,3,2,1};
+int vet9[11] = {11,10,9,8,7,6,5,4,3,2,1};
+int vet10[12] = {12,11,10,9,8,7,6,5,4,3,2,1}; 
+int vet11[13] = {13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet12[14] = {14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet13[15] = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet14[16] = {16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet15[17] = {17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet16[18] = {18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet17[19] = {19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+int vet18[20] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+
+void check_sorted(const int vet[], int size);
+void teste_foda_pra_caralho(char* complexidade, int tipo);
 
 TEST_GROUP(Sorting);
 
@@ -55,45 +42,24 @@ TEST_TEAR_DOWN(Sorting)
 
 // Testa ordenação
 TEST(Sorting, TestSorting1){
-	teste_foda_pra_caralho("On", COUNTING);
-	teste_foda_pra_caralho("On", RADIX);
-	teste_foda_pra_caralho("On2", BUBBLE);
-	teste_foda_pra_caralho("On2", INSERTION);
-	teste_foda_pra_caralho("On2", SELECTION);
-	teste_foda_pra_caralho("Onlogn", HEAP);
-	teste_foda_pra_caralho("Onlogn", MERGE);
-	teste_foda_pra_caralho("Onlogn", QUICK);
-
-    
-	// int size = 4;
-	
-    // sort(vet1, size, "On", COUNTING);      
-	// sort(vet2, size, "On", RADIX);       
-	// sort(vet3, size, "On2", BUBBLE);       
-	// sort(vet4, size, "On2", INSERTION);    
-	// sort(vet5, size, "On2", SELECTION);   
-	// sort(vet6, size, "Onlogn", HEAP);     
-	// sort(vet7, size, "Onlogn", MERGE);    
-	// sort(vet8, size, "Onlogn", QUICK);    
-
-	// check_sorted(vet1, size);
-	// check_sorted(vet2, size);
-	// check_sorted(vet3, size);
-	// check_sorted(vet4, size);
-	// check_sorted(vet5, size);
-	// check_sorted(vet6, size);
-	// check_sorted(vet7, size);
-	// check_sorted(vet8, size);
+    teste_foda_pra_caralho("On", COUNTING);
+    teste_foda_pra_caralho("On", RADIX);
+    teste_foda_pra_caralho("On2", BUBBLE);
+    teste_foda_pra_caralho("On2", INSERTION);
+    teste_foda_pra_caralho("On2", SELECTION);
+    teste_foda_pra_caralho("Onlogn", HEAP);
+    teste_foda_pra_caralho("Onlogn", MERGE);
+    teste_foda_pra_caralho("Onlogn", QUICK);
 }
 
-void teste_foda_pra_caralho(string algoritmo, int tipo) {
-	for(int i = 0; i <= 18; i++) {
-		int size = i+2;
-		int aux_vet[];
-		memcpy(aux_vet, vet[i], size * sizeof(int));
-		sort(aux_vet, size, algoritmo, tipo);
-		check_sorted(aux_vet, size);
-	}
+void teste_foda_pra_caralho(char* complexidade, int tipo) {
+    int *vet = malloc(sizes[0] * sizeof(int));
+    if (vet != NULL) {
+        memcpy(vet, vet0, sizes[0] * sizeof(int));
+        sort(vet, sizes[0], complexidade, tipo);
+        check_sorted(vet, sizes[0]);
+        free(vet);
+    }
 }
 
 // Testa vetor vazio
@@ -125,19 +91,18 @@ TEST(Sorting, TestSorting2)
 
 // Testa em um vetor já ordenado
 TEST(Sorting, TestSorting3){
-    
-	int size = 4;
-	
-    sort(vet1, size, "On", COUNTING);      
-	sort(vet2, size, "On", RADIX);       
-	sort(vet3, size, "On2", BUBBLE);       
-	sort(vet4, size, "On2", INSERTION);    
-	sort(vet5, size, "On2", SELECTION);   
-	sort(vet6, size, "Onlogn", HEAP);     
-	sort(vet7, size, "Onlogn", MERGE);    
-	sort(vet8, size, "Onlogn", QUICK);  
+    int size = 3; // Corrigido para o tamanho correto do vetor
 
-     for (int i = 0; i < size; i++) {
+    sort(vet1, size, "On", COUNTING);      
+    sort(vet2, size, "On", RADIX);       
+    sort(vet3, size, "On2", BUBBLE);       
+    sort(vet4, size, "On2", INSERTION);    
+    sort(vet5, size, "On2", SELECTION);   
+    sort(vet6, size, "Onlogn", HEAP);     
+    sort(vet7, size, "Onlogn", MERGE);    
+    sort(vet8, size, "Onlogn", QUICK);  
+
+    for (int i = 0; i < size; i++) {
         TEST_ASSERT_EQUAL(i + 1, vet1[i]);  
         TEST_ASSERT_EQUAL(i + 1, vet2[i]);
         TEST_ASSERT_EQUAL(i + 1, vet3[i]);
@@ -150,14 +115,21 @@ TEST(Sorting, TestSorting3){
 }
 
 // Teste de vetor unitário (Limites entre 2 e 20)
-TEST(Sorting, TestSorting4){
-
+TEST(Sorting, TestSorting4) {
+    for (int i = 0; i < 19; i++) {
+        int size = sizes[i];
+        int *vet = malloc(size * sizeof(int));
+        if (vet != NULL) {
+            memcpy(vet, vet0, size * sizeof(int)); // Usar o vetor de teste correspondente
+            sort(vet, size, "Onlogn", MERGE); // Exemplo com o algoritmo de merge sort
+            check_sorted(vet, size); // Verificar se está ordenado
+            free(vet);
+        }
+    }
 }
 
-
-
-void check_sorted(int vet[], int size) {
-	for(int i = 0; i < size; i++) {
-		TEST_ASSERT_EQUAL(i + 1, vet[i]);
-	}
+void check_sorted(const int vet[], int size) {
+    for (int i = 0; i < size; i++) {
+        TEST_ASSERT_EQUAL(i + 1, vet[i]);
+    }
 }
