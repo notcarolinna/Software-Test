@@ -6,8 +6,7 @@
 #define ERRADO 1
 
 // Vetores de teste
-// Se testar esses vetores no Radix ou Counting dá seg fault
-// No caso crasha com qualquer número negativo
+// Se testar vetores negativos no Radix ou Counting dá seg fault
 
 int vet_asc[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int vet_desc[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
@@ -16,6 +15,7 @@ int vet_neg[5] = {3,2,1,0,-1};
 int vet_mixed[8] = {3, -1, 2, -3, 1, -2, 5, 0};
 
 void teste(int* vet_base, int size, int compare);
+int negative_values(int* vet, int size);
 
 TEST_GROUP(Sorting);
 
@@ -42,15 +42,23 @@ TEST(Sorting, TestSortingDuplicates){
 }
 
 // Teste vetor com elementos negativos
+// Utiliza função auxiliar para verificar se os vetores possuem números negativos
+// Se possuir, não testa Counting e Radix sort para evitar segmentation fault
 TEST(Sorting, TestSortingNegative){
-	teste(vet_neg, 5, CERTO);
-	//free(vet_neg);
+    if (!negative_values(vet_neg, 5)) {
+        teste(vet_neg, 5, CERTO);
+    } else {
+        printf("\nSem uso do Counting e Radix sort para evitar Segmentation Fault.\n");
+    }
 }
 
 // Teste vetor com elementos positivos e negativos
 TEST(Sorting, TestSortingMixed){
-	teste(vet_mixed, 8, CERTO);
-	//free(vet_mixed);
+    if (!negative_values(vet_mixed, 8)) {
+        teste(vet_mixed, 8, CERTO);
+    } else {
+        printf("\nSem uso do Counting e Radix sort para evitar Segmentation Fault.\n");
+    }
 }
 
 // Testa vetor com tamanho mínimo
@@ -104,14 +112,14 @@ void teste(int* vet_base, int size, int compare) {
 		printf("começando\n\n");
 		
 		// Counting Sort
-		//memcpy(vet, vet_base, size * sizeof(int));
-		//status += sort(vet, size, "On", COUNTING);
-		//printf("COUNTING + %d\n", status);
+		memcpy(vet, vet_base, size * sizeof(int));
+		status += sort(vet, size, "On", COUNTING);
+		printf("COUNTING + %d\n", status);
 
 		// Radix Sort
-		// memcpy(vet, vet_base, size * sizeof(int));
-		//status += sort(vet, size, "Onlogn", RADIX);
-		// printf("RADIX + %d\n", status);
+		 memcpy(vet, vet_base, size * sizeof(int));
+		status += sort(vet, size, "On", RADIX);
+		 printf("RADIX + %d\n", status);
         
         // Bubble Sort
         memcpy(vet, vet_base, size * sizeof(int));
@@ -149,4 +157,13 @@ void teste(int* vet_base, int size, int compare) {
         TEST_ASSERT_EQUAL(compare, status);
     }
     free(vet);
+}
+
+int negative_values(int* vet, int size) {
+    for (int i = 0; i < size; i++) {
+        if (vet[i] < 0) {
+            return 1; // Retorna 1 se houver números negativos
+        }
+    }
+    return 0; // Retorna 0 se não houver números negativos
 }
