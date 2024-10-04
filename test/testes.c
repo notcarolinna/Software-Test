@@ -45,20 +45,12 @@ TEST(Sorting, TestSortingDuplicates){
 // Utiliza função auxiliar para verificar se os vetores possuem números negativos
 // Se possuir, não testa Counting e Radix sort para evitar segmentation fault
 TEST(Sorting, TestSortingNegative){
-    if (!negative_values(vet_neg, 5)) {
-        teste(vet_neg, 5, CERTO);
-    } else {
-        printf("\nSem uso do Counting e Radix sort para evitar Segmentation Fault.\n");
-    }
+    teste(vet_neg, 5, CERTO);
 }
 
 // Teste vetor com elementos positivos e negativos
 TEST(Sorting, TestSortingMixed){
-    if (!negative_values(vet_mixed, 8)) {
-        teste(vet_mixed, 8, CERTO);
-    } else {
-        printf("\nSem uso do Counting e Radix sort para evitar Segmentation Fault.\n");
-    }
+    teste(vet_mixed, 8, CERTO);
 }
 
 // Testa vetor com tamanho mínimo
@@ -105,11 +97,23 @@ TEST(Sorting, TestSortingZeroSize) {
     teste(vet_empty, 0, ERRADO);  
 }
 
+TEST(Sorting, TestNegativeValuesFunction) {
+    TEST_ASSERT_EQUAL(1, negative_values(vet_neg, 5)); // Deve detectar negativo
+    TEST_ASSERT_EQUAL(0, negative_values(vet_asc, 10)); // Não deve detectar negativo
+}
+
+
 void teste(int* vet_base, int size, int compare) {
     int status = 0;
     int *vet = malloc(size * sizeof(int));
     if (vet != NULL) {
 		printf("começando\n\n");
+
+        if (negative_values(vet_base, size)) {
+            TEST_IGNORE_MESSAGE("Ordenação com Radix ou Counting Sort falhou devido a números negativos.");
+            free(vet);
+            return;
+        }
 		
 		// Counting Sort
 		memcpy(vet, vet_base, size * sizeof(int));
