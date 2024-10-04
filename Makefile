@@ -34,7 +34,7 @@ UNITY_SRC=$(UNITY_ROOT)/src/unity.c \
   test/testes.c \
   test/Test_Runner.c \
   test/all_tests.c \
-  src/sort.c
+  src/*.c
 UNITY_INC_DIRS = -Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 UNITY_TARGET = all_tests
 
@@ -85,8 +85,8 @@ unity:
 coverage: $(EXEC)
 	gcov $(SOURCES)
 
-app: sort.c main.c 
-	$(GCC) sort.c main.c -o $@
+app: src/bubble_sort.c src/counting_sort.c src/heap_sort.c src/insertion_sort.c src/merge_sort.c src/quick_sort.c src/radix_sort.c src/selection_sort.c src/sort.c main.c
+	$(GCC) bubble_sort.c counting_sort.c heap_sort.c insertion_sort.c merge_sort.c quick_sort.c radix_sort.c selection_sort.c sort.c main.c -o $@
 
 clean:
 	rm -fr app $(EXEC) $(UNITY_TARGET) *.o cov* *.dSYM *.gcda *.gcno *.gcov
