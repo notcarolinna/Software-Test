@@ -12,8 +12,7 @@ void print_array(int* a, int length){
     printf("]\n");
 }
 
-int main(void)
-{
+int main(void){
     int a[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
     int length = sizeof(a) / sizeof(int);
     
