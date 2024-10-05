@@ -46,7 +46,6 @@ jobs:
     - name: Run AddressSanitizer Tests
       run: ./exec
 
-     
 # Ferramentas de Descrição de Testes:
 # gtest, cpptest, catch, fuzzy testing
 # Code Coverage:
