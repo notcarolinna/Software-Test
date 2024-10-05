@@ -5,9 +5,6 @@
 #define CERTO 0
 #define ERRADO 1
 
-// Vetores de teste
-// Se testar vetores negativos no Radix ou Counting dá seg fault
-
 int vet_asc[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int vet_desc[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 int vet_dup[12] = {3, 1, 2, 3, 2, 1, 3, 1, 2, 3, 2, 1};
