@@ -140,7 +140,6 @@ void UnityIgnoreTest(const char* printableName, const char* group, const char* n
     }
 }
 
-
 /*------------------------------------------------- */
 /* Malloc and free stuff */
 #define MALLOC_DONT_FAIL -1
